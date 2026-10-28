@@ -1,6 +1,6 @@
 # Turan Text Corrector — демо
 
-**Сайт:** https://daniyar3348.github.io/turan-demo/
+**Сайт:** https://correctecor.kz
 
 Исправление орфографии казахского текста. Нейросеть KazRoBERTa находит слова с
 ошибками, корректор подбирает правильную форму: сначала замены русских букв на
@@ -32,7 +32,7 @@ KazRoBERTa (`kz-transformers/kaz-roberta-conversational`, 6 слоёв, ~83 мл
 
 | Часть | Где | Что |
 |---|---|---|
-| Страница | GitHub Pages, этот репозиторий | собранный React-фронтенд |
+| Страница | GitHub Pages, этот репозиторий, домен `correctecor.kz` (DNS в Plesk на ps.kz) | собранный React-фронтенд |
 | Сервер | [Hugging Face Space `daniyar51/turan-text-corrector`](https://huggingface.co/spaces/daniyar51/turan-text-corrector) | FastAPI + PyTorch (CPU) в Docker, модель и словарь внутри образа |
 
 Сервер засыпает, если сайтом долго не пользуются; первый запрос после сна идёт
