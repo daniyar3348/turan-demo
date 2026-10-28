@@ -1,0 +1,33 @@
+# Сервер на Hugging Face засыпает после 48 часов без запросов.
+# Запрос раз в 6 часов не дает ему уснуть; если сервер не ответил, запуск падает и GitHub присылает письмо.
+name: Keep Space awake
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping the Space
+        run: |
+          # Спящий сервер просыпается от первого запроса, поэтому ждем до 5 минут, пока модель загрузится
+          for i in $(seq 1 10); do
+            ready=$(curl -s --max-time 30 https://daniyar51-turan-text-corrector.hf.space/health | jq -r .details.kazakh_model_ready) || true
+            echo "attempt $i: ${ready:-no answer}"
+            [ "$ready" = True ] && exit 0
+            sleep 30
+          done
+          exit 1
+
+      # GitHub отключает расписание в публичном репозитории после 60 дней без коммитов; повторное включение это предотвращает
+      - name: Keep the schedule enabled
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/keep-awake.yml/enable"
