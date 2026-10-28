@@ -119,7 +119,7 @@ Please change the parent <Route path="${p}"> to <Route path="${p==="/"?"*":`${p}
                     placeholder-gray-300 outline-none rounded-xl border
                     transition-colors duration-150 px-4 py-3 bg-gray-50 focus:bg-white
                     ${N?"border-red-300 focus:border-red-400 focus:ring-2 focus:ring-red-100":"border-gray-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-100"}
-                  `,"aria-label":"Input text for correction"}),N&&v.jsxs("p",{className:"mt-1.5 text-xs text-red-500 flex items-center gap-1",children:[v.jsx("span",{children:"⚠"}),v.jsxs("span",{children:["Текст превышает лимит ",Ui.toLocaleString()," символов."]})]})]}),v.jsxs("div",{className:"flex items-center gap-3 px-4 pb-4",children:[v.jsxs("button",{onClick:j,disabled:T||!e.trim()||N,className:`
+                  `,"aria-label":"Input text for correction"}),N&&v.jsxs("p",{className:"mt-1.5 text-xs text-red-500 flex items-center gap-1",children:[v.jsx("span",{children:"⚠"}),v.jsxs("span",{children:["Текст превышает лимит ",Ui.toLocaleString()," символов."]})]})]}),v.jsxs("div",{className:"flex flex-wrap items-center gap-3 px-4 pb-4",children:[v.jsxs("button",{onClick:j,disabled:T||!e.trim()||N,className:`
                     inline-flex items-center gap-2 px-6 py-2.5 rounded-xl
                     bg-gradient-to-r from-primary-600 to-indigo-600
                     text-white font-semibold text-sm
