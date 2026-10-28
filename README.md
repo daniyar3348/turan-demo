@@ -33,7 +33,8 @@ KazRoBERTa (`kz-transformers/kaz-roberta-conversational`, 6 слоёв, ~83 мл
 | Часть | Где | Что |
 |---|---|---|
 | Страница | GitHub Pages, этот репозиторий, домен `correctecor.kz` (DNS в Plesk на ps.kz) | собранный React-фронтенд |
-| Сервер | [Hugging Face Space `daniyar51/turan-text-corrector`](https://huggingface.co/spaces/daniyar51/turan-text-corrector) | FastAPI + PyTorch (CPU) в Docker, модель и словарь внутри образа |
+| Сервер | [Hugging Face Space `daniyar51/turan-text-corrector`](https://huggingface.co/spaces/daniyar51/turan-text-corrector) | FastAPI + PyTorch (CPU) в Docker: принимает текст со страницы, прогоняет через модель и корректор, возвращает исправленный текст |
+| Модель | [Hugging Face `daniyar51/kazroberta-kazakh-spelling-detector`](https://huggingface.co/daniyar51/kazroberta-kazakh-spelling-detector) | обученный детектор KazRoBERTa и словарь корректора; Space скачивает их при сборке (зафиксированная версия) |
 
 Сервер засыпает, если сайтом долго не пользуются; первый запрос после сна идёт
 около минуты, страница показывает «Сервер просыпается…». Action
@@ -46,7 +47,11 @@ API сервера: `https://daniyar51-turan-text-corrector.hf.space/docs`
 Исходный код — [daniyar3348/text_corrector](https://github.com/daniyar3348/text_corrector).
 
 ```bash
-# сервер (Space): код, словарь и модель из text_corrector/backend
+# модель: веса, токенизатор, словарь и описание → репозиторий модели;
+# напечатанный MODEL_REVISION вписать в text_corrector/backend/space/Dockerfile
+python text_corrector/backend/scripts/publish_model.py
+
+# сервер (Space): только код из text_corrector/backend, модель он скачает сам
 python text_corrector/backend/scripts/deploy_space.py
 
 # страница: сборка в эту папку, затем commit + push
